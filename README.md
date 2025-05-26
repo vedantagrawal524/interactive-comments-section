@@ -1,1 +1,1 @@
-# Frontend Mentor - Interactive comments section
+# Interactive comments section

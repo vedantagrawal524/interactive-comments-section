@@ -8,8 +8,9 @@
 @theme {
   --font-rubik: "Rubik", sans-serif;
 
-  --breakpoint-xxs: 375px;
-  --breakpoint-xs: 620px;
+  /* --breakpoint-xxs: 375px;
+  --breakpoint-xs: 620px; */
+  --breakpoint-xs: 520px;
 
   --color-Purple-600: hsl(238, 40%, 52%);
   --color-Pink-400: hsl(358, 79%, 66%);
