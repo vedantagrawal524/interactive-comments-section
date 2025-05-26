@@ -1,13 +1,17 @@
 export default function CustomizeButtons() {
   return (
-    <div className="">
-      <button>
-        <img src="" alt="" />
+    <div className="flex flex-row items-center gap-3">
+      <button className="text-Pink-400 flex flex-row items-center justify-center gap-1 text-[0.9rem] font-[600] hover:cursor-pointer hover:opacity-60">
+        <img
+          src="/images/icon-delete.svg"
+          alt="Reply"
+          className="h-auto w-2.5"
+        />
         Delete
       </button>
 
-      <button>
-        <img src="" alt="" />
+      <button className="text-Purple-600 flex flex-row items-center justify-center gap-1 text-[0.9rem] font-[600] hover:cursor-pointer hover:opacity-60">
+        <img src="/images/icon-edit.svg" alt="Reply" className="h-auto w-3" />
         Edit
       </button>
     </div>

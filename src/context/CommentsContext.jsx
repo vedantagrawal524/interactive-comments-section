@@ -4,7 +4,7 @@ export const CommentsContext = createContext();
 
 export default function CommentsContextProvider({ children }) {
   const [comments, setComments] = useState([]);
-  const [currentUser, setCurrentUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
 
   // Load data
   useEffect(() => {
