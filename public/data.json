@@ -4,7 +4,8 @@
       "png": "/images/avatars/image-juliusomo.png",
       "webp": "/images/avatars/image-juliusomo.webp"
     },
-    "username": "juliusomo"
+    "username": "juliusomo",
+    "voteKey": {}
   },
 
   "comments": [
@@ -41,7 +42,7 @@
           "createdAt": "1 week ago",
           "score": 4,
           "replyingTo": "maxblagun",
-          "replyingUnder": 2,
+          "parentComment": 2,
           "user": {
             "image": {
               "png": "/images/avatars/image-ramsesmiron.png",
@@ -56,7 +57,7 @@
           "createdAt": "2 days ago",
           "score": 2,
           "replyingTo": "ramsesmiron",
-          "replyingUnder": 2,
+          "parentComment": 2,
           "user": {
             "image": {
               "png": "/images/avatars/image-juliusomo.png",
