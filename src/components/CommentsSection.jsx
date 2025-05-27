@@ -1,6 +1,5 @@
 import { useCommentsContext } from "../hooks/useCommentsContext";
 import Comment from "./Comment";
-import Reply from "./Reply";
 import AddComment from "./AddComment";
 
 export default function CommentsSection() {
