@@ -118,12 +118,16 @@ export default function CommentsContextProvider({ children }) {
           return comment;
         });
       };
-      return addReplyRecursive(prev);
+
+      const updatedComments = addReplyRecursive(prev);
+      sessionStorage.setItem("comments", JSON.stringify(updatedComments));
+      return updatedComments;
     });
   };
 
   const generateUniqueId = () => uuidv4();
   const getCreatedAt = () => "Just now";
+
   const handleAddComment = ({ content, type, parentId, replyingTo }) => {
     const trimmedContent = content.trim();
     if (trimmedContent === "") return;
@@ -159,6 +163,31 @@ export default function CommentsContextProvider({ children }) {
     sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
   };
 
+  const editComment = (commentId, newContent) => {
+    setComments((prev) => {
+      const editRecursive = (comments) =>
+        comments.map((comment) => {
+          if (comment.id === commentId) {
+            return {
+              ...comment,
+              content: newContent,
+            };
+          }
+          if (comment.replies) {
+            return {
+              ...comment,
+              replies: editRecursive(comment.replies),
+            };
+          }
+          return comment;
+        });
+
+      const updatedComments = editRecursive(prev);
+      sessionStorage.setItem("comments", JSON.stringify(updatedComments));
+      return updatedComments;
+    });
+  };
+
   return (
     <CommentsContext.Provider
       value={{
@@ -169,6 +198,7 @@ export default function CommentsContextProvider({ children }) {
         setComments,
         addReply,
         handleAddComment,
+        editComment,
       }}
     >
       {children}

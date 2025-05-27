@@ -5,7 +5,7 @@ import AddComment from "./AddComment";
 import { useState } from "react";
 
 export default function Comment(props) {
-  const { currentUser, handleVote } = useCommentsContext();
+  const { currentUser, handleVote, editComment } = useCommentsContext();
 
   const [showReplyInput, setShowReplyInput] = useState(false);
   const toggleReply = () => setShowReplyInput((prev) => !prev);
@@ -19,6 +19,16 @@ export default function Comment(props) {
 
   const currentVote = currentUser.voteKey?.[props.comment.id];
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(props.comment.content);
+
+  const handleUpdate = () => {
+    const trimmed = editText.trim();
+    if (trimmed) {
+      editComment(props.comment.id, trimmed);
+      setIsEditing(false);
+    }
+  };
   return (
     <div className="flex w-full flex-col gap-4">
       <div className="bg-White flex w-full flex-col rounded-[0.4rem] p-4 md:p-6">
@@ -73,7 +83,12 @@ export default function Comment(props) {
 
             <div className="xs:hidden">
               {isCurrentUser ? (
-                <CustomizeButtons commentId={props.comment.id} />
+                <CustomizeButtons
+                  commentId={props.comment.id}
+                  isEditing={isEditing}
+                  onEditToggle={() => setIsEditing((prev) => !prev)}
+                  onUpdate={handleUpdate}
+                />
               ) : (
                 <ReplyButton onClick={toggleReply} />
               )}
@@ -107,33 +122,43 @@ export default function Comment(props) {
 
               <div className="xs:inline-block hidden">
                 {isCurrentUser ? (
-                  <CustomizeButtons commentId={props.comment.id} />
+                  <CustomizeButtons
+                    commentId={props.comment.id}
+                    isEditing={isEditing}
+                    onEditToggle={() => setIsEditing((prev) => !prev)}
+                    onUpdate={handleUpdate}
+                  />
                 ) : (
                   <ReplyButton onClick={toggleReply} />
                 )}
               </div>
             </div>
             <div className="text-Grey-500 w-full text-[0.95rem] leading-[1.4rem] font-[400] break-all">
-              {isReply && (
-                <span className="text-Purple-600 font-[500]">
-                  @{props.comment.replyingTo}{" "}
-                </span>
+              {isEditing ? (
+                <textarea
+                  className="border-Grey-200 w-full resize-none rounded-md border p-2 text-[0.95rem]"
+                  value={editText}
+                  onChange={(e) => setEditText(e.target.value)}
+                />
+              ) : (
+                <>
+                  {isReply && (
+                    <span className="text-Purple-600 font-[500]">
+                      @{props.comment.replyingTo}{" "}
+                    </span>
+                  )}
+                  {props.comment.content}
+                </>
               )}
-              {props.comment.content}
             </div>
           </div>
         </div>
-
-        {/* <button className="bg-Purple-600 text-White mt-2 w-fit self-end rounded-[0.4rem] px-4 py-2 text-[0.9rem] font-[400] tracking-wide uppercase hover:cursor-pointer">
-          {" "}
-          Update
-        </button> */}
       </div>
       {showReplyInput && (
         <AddComment
           type="reply"
           replyingTo={props.comment.user.username}
-          parentId={props.comment.parentComment}
+          parentId={isReply ? props.comment.parentComment : props.comment.id}
           onClose={() => setShowReplyInput(false)}
         />
       )}
