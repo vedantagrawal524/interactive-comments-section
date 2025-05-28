@@ -31,7 +31,7 @@ export default function CommentsContextProvider({ children }) {
         });
     }
   }, []);
-
+  console.log(comments);
   const handleVote = (commentId, type) => {
     const username = currentUser.username;
 

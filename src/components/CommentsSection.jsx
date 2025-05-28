@@ -5,7 +5,7 @@ import AddComment from "./AddComment";
 export default function CommentsSection() {
   const { comments } = useCommentsContext();
   return (
-    <section className="flex w-full max-w-[45rem] flex-col gap-4">
+    <section className="flex w-full max-w-[45rem] flex-col gap-4 py-4">
       {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}

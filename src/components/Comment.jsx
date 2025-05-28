@@ -10,7 +10,7 @@ export default function Comment(props) {
   const [showReplyInput, setShowReplyInput] = useState(false);
   const toggleReply = () => setShowReplyInput((prev) => !prev);
 
-  const isReply = props.comment.replies ? false : true;
+  const isReply = props.comment.parentComment ? true : false;
   const haveReplies =
     !isReply && props.comment.replies.length > 0 ? true : false;
 
